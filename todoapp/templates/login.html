@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body background="{%static 'images/background.jpg'%}">
+    <div class="container">
+        <div class="vh-100 d-flex justify-content-center align-items-center">
+            <div class="w-100 d-flex flex-column align-items-center">
+                <div class="d-flex">
+                    <h4 class="text-white fw-bolder">Tod<i class="fa-solid fs-6 fa-circle-check"></i> </h4><h6 class="text-white">Application</h6>
+                </div>
+                <form action="" method="post" class="p-3 rounded-3 bg-danger bg-opacity-25 w-50 shadow-lg"  background="{%static 'images/background.jpg'}">
+                    {%if messages%}
+                        {%for m in messages%}
+                            {%if m.level == DEFAULT_MESSAGE_LEVELS.SUCCESS%}
+                            <div class="container d-flex justify-content-center align-items-center">
+                                <div class="alert alert-success alert-dismissible fade show w-25 text-center" role="alert">
+                                    <strong>{{m}}</strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            </div>
+                
+                            {%endif%}
+                            {%if m.level == DEFAULT_MESSAGE_LEVELS.ERROR%}
+                            <div class="d-flex justify-content-center">
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{m}}</strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            </div>
+                            {%endif%}
+                        {%endfor%}
+                    {%endif%}
+                    <h1 class="my-3 fw-bolder text-center text-white">Signin</h1>
+                    {%csrf_token%}
+                    {%for field in form%}
+                        <p class="text-white">
+                            {%if field.errors%}
+                                <ul class="text-danger">
+                                    {{field.errors}}
+                                </ul>
+                            {%endif%}
+                            {{field.label_tag}}
+                            {{field}}
+                        </p>
+                    {%endfor%}
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-warning mb-3" type="submit">Sign in</button>
+                    </div>
+                    <hr class="text-white">
+                    <div class="d-flex justify-content-center mb-3">
+                        <a class="text-white-50 text-decoration-none" href="{%url 'register'%}">I have an account</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
